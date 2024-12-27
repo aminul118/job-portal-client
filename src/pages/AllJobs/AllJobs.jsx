@@ -5,7 +5,9 @@ import HotJobCard from "../Home/HotJobCard";
 const AllJobs = () => {
   const [sort, setSort] = useState(false);
   const [search, setSearch] = useState("");
-  const { jobs, loading } = useJobs(sort, search);
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
+  const { jobs, loading } = useJobs(sort, search, min, max);
 
   if (loading) {
     return <h1>Loading---------</h1>;
@@ -28,6 +30,20 @@ const AllJobs = () => {
           className="input"
           type="text"
           placeholder="Search by Locations"
+        />
+        <input
+          onKeyUp={(e) => setMin(e.target.value)}
+          className="input"
+          type="number"
+          placeholder="Min salary"
+        />
+        <input
+          onKeyUp={(e) => {
+            setMax(e.target.value);
+          }}
+          className="input"
+          type="number"
+          placeholder="Max salary"
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
